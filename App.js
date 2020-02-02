@@ -116,6 +116,7 @@ export default class App extends Component {
       }
     )
 
+    
     this.setState(
       { type: 'n' }
     )
