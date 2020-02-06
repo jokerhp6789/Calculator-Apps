@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { render } from 'react-dom';
+const START = 's'
 class Screen extends Component {
   render() {
     const { displayNumber } = this.props
@@ -151,13 +152,13 @@ class MyButton extends Component {
 export default class App extends Component {
   constructor(props) {
     super(props)
-
+    console.log("App constructor")
     this.state = {
       inputData: '',
       inputNumber: '',
       displayNumber: '0',
       previType: '',
-      type: 's',     // 's': start,'n': number,'c': calculator,'e' : equal
+      type: START,     // 's': start,'n': number,'c': calculator,'e' : equal
       previCount: 0,
       count: 0,    // => tránh vòng lắp vô hạn khi sử dụng lệnh if
       operator: '',
@@ -165,6 +166,25 @@ export default class App extends Component {
       dotCount: 0,
     }
   }
+  static getDerivedStateFromProps() {
+
+    console.log("App getDerivedStateFromProps")
+
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("App shouldComponentUpdate")
+    
+    return true  
+  }
+  getSnapshotBeforeUpdate() {
+    console.log("App getSnapshotBeforeUpdate")
+  }
+
+  componentDidUpdate() {
+    console.log("App componentDidUpdate")
+
+  }
+
 
   press0Handle = () => {
 
@@ -461,7 +481,11 @@ export default class App extends Component {
       { dotCount: 0 }
     )
   }
+  componentDidMount() {
+    console.log("App Didmount")
+  }
   render() {
+    console.log("App render")
     let { displayNumber } = this.state
     let { inputNumber } = this.state
     let { count } = this.state
@@ -497,6 +521,7 @@ export default class App extends Component {
       this.setState(
         () => ({ inputData: inputNumber })
       )
+
     }
     if (count !== previCount & type === 'd' & previType === 'n' & dotCount !== 1) {   // trường hợp ấn phím . lần đầu và khi phím trước là phím số 
       this.setState({ previCount: count })
