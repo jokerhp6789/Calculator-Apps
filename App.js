@@ -1,26 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { render } from 'react-dom';
-const START = 's'
+const START = 's', NUMBER = 'n', OPERATOR = 'o', EQUAL = 'e', DOT = 'd'
 class Screen extends Component {
   render() {
     const { displayNumber } = this.props
-    const { previNumber } = this.props
-    const { type } = this.props
-    const { previType } = this.props
-    // if (type === 's') {                       // sử dụng trong trường hợp không dùng praseFloat,lúc này displayNumber phải set về '' => trong 1 số trường hợp không thể hiển thệ trực tiếp displayNumber
-    //   return (
-    //     <View style={styles.screenStyle}>
-    //       <Text style={styles.textScreenStyle}>0</Text>
-    //     </View>
-    //   )
-    // }
-    // if (type === 'e' && previType === 's') {  // sử dụng trong trường hợp không dùng praseFloat,lúc này displayNumber phải set về '' => trong 1 số trường hợp không thể hiển thệ trực tiếp displayNumber    //   return (
-    //     <View style={styles.screenStyle}>
-    //       <Text style={styles.textScreenStyle}>0</Text>
-    //     </View>
-    //   )
-    // }
     return (
       <View style={styles.screenStyle}>
         <Text style={styles.textScreenStyle}>{parseFloat(displayNumber)}</Text>
@@ -29,136 +13,84 @@ class Screen extends Component {
   }
 }
 class MyButton extends Component {
-  press0Handle = () => {
-    this.props.onChangePress0()
-  }
-  press1Handle = () => {
-    this.props.onChangePress1()
-  }
-  press2Handle = () => {
-    this.props.onChangePress2()
-  }
-  press3Handle = () => {
-    this.props.onChangePress3()
-  }
-  press4Handle = () => {
-    this.props.onChangePress4()
-  }
-  press5Handle = () => {
-    this.props.onChangePress5()
-  }
-  press6Handle = () => {
-    this.props.onChangePress6()
-  }
-  press7Handle = () => {
-    this.props.onChangePress7()     // nếu chỉ viết : this.props.onChangePress7 *ko có ngoặc đơn* => doesnt work vì react sẽ hiểu đây chỉ là 1 biền thông thường ko phải là 1 function
-  }
-  press8Handle = () => {
-    this.props.onChangePress8()
-  }
-  press9Handle = () => {
-    this.props.onChangePress9()
-  }
-  pressDotHandle = () => {
-    this.props.onChangePressDot()
-  }
-  pressAddHandle = () => {
-    this.props.onChangePressAdd()
-  }
-  pressMinHandle = () => {
-    this.props.onChangePressMin()
-  }
-  pressMulHandle = () => {
-    this.props.onChangePressMul()
-  }
-  pressDivHandle = () => {
-    this.props.onChangePressDiv()
-  }
-  pressC_Handle = () => {
-    this.props.onChangePress_C()
-  }
-  pressEqualHandle = () => {
-    this.props.onChangePressEqual()
+  pressHandle = (valuePress) => {
+    this.props.onchangePress(valuePress)
   }
   render() {
-    // const result = eval ('19+23*5+2');
     return (
-
       <View style={styles.buttonallStyle}>
         <View style={styles.columnStyle}>
-          <TouchableOpacity onPress={() => { this.press7Handle() }} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle(7) }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>7</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.press4Handle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle(4) }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>4</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.press1Handle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle(1) }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>1</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.pressC_Handle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle('RESET') }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>C</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.columnStyle}>
-          <TouchableOpacity onPress={this.press8Handle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle(8) }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>8</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.press5Handle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle(5) }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>5</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.press2Handle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle(2) }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>2</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.press0Handle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle(0) }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>0</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.columnStyle}>
-          <TouchableOpacity onPress={this.press9Handle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle(9) }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>9</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.press6Handle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle(6) }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>6</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.press3Handle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle(3) }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>3</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.pressDotHandle} style={styles.buttonStyle}>
+          <TouchableOpacity onPress={() => { this.pressHandle('DOT') }} style={styles.buttonStyle}>
             <Text style={styles.textStyle}>.</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.columnStyle}>
-          <TouchableOpacity onPress={this.pressDivHandle} style={styles.button1Style}>
+          <TouchableOpacity onPress={() => { this.pressHandle('DIV') }} style={styles.button1Style}>
             <Text style={styles.textStyle}>/</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.pressMulHandle} style={styles.button1Style}>
+          <TouchableOpacity onPress={() => { this.pressHandle('MUL') }} style={styles.button1Style}>
             <Text style={styles.textStyle}>*</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.pressAddHandle} style={styles.button1Style}>
+          <TouchableOpacity onPress={() => { this.pressHandle('ADD') }} style={styles.button1Style}>
             <Text style={styles.textStyle}>+</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.pressMinHandle} style={styles.button1Style}>
+          <TouchableOpacity onPress={() => { this.pressHandle('MIN') }} style={styles.button1Style}>
             <Text style={styles.textStyle}>-</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.pressEqualHandle} style={styles.button1Style}>
+          <TouchableOpacity onPress={() => { this.pressHandle('EQUAL') }} style={styles.button1Style}>
             <Text style={styles.textStyle}>=</Text>
           </TouchableOpacity>
         </View>
       </View>
-
     );
   }
 }
 export default class App extends Component {
   constructor(props) {
     super(props)
-    console.log("App constructor")
     this.state = {
       inputData: '',
       inputNumber: '',
       displayNumber: '0',
       previType: '',
-      type: START,     // 's': start,'n': number,'c': calculator,'e' : equal
+      type: START,
       previCount: 0,
       count: 0,    // => tránh vòng lắp vô hạn khi sử dụng lệnh if
       operator: '',
@@ -166,336 +98,138 @@ export default class App extends Component {
       dotCount: 0,
     }
   }
-  static getDerivedStateFromProps() {
-
-    console.log("App getDerivedStateFromProps")
+  setNumberState = (valuePress) => {
+    this.setState(
+      (previState) => ({ count: previState.count + 1 })
+    )
+    this.setState(
+      {
+        previType: this.state.type,
+        type: NUMBER,
+        inputNumber: valuePress
+      }
+    )
 
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log("App shouldComponentUpdate")
-    
-    return true  
-  }
-  getSnapshotBeforeUpdate() {
-    console.log("App getSnapshotBeforeUpdate")
-  }
-
-  componentDidUpdate() {
-    console.log("App componentDidUpdate")
-
-  }
-
-
-  press0Handle = () => {
-
+  setOperatorState = (valuePress) => {
     this.setState(
-      (e) => ({ count: e.count + 1 })
+      (previState) => ({ count: previState.count + 1 })
     )
     this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 'n' }
-    )
-    this.setState(
-      { inputNumber: '0' }
+      {
+        previType: this.state.type,
+        type: OPERATOR,
+        inputNumber: '',
+        operator: valuePress,
+        dotCount: 0
+      }
     )
   }
-  press1Handle = () => {
-
+  setDotState = () => {
     this.setState(
-      (e) => ({ count: e.count + 1 })
+      (previState) => ({ count: previState.count + 1 })
     )
     this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 'n' }
-    )
-    this.setState(
-      { inputNumber: '1' }
+      {
+        previType: this.state.type,
+        type: DOT,
+        inputNumber: '.'
+      }
     )
   }
-  press2Handle = () => {
-
+  setResetState = () => {
     this.setState(
-      (e) => ({ count: e.count + 1 })
+      (previState) => ({ count: previState.count + 1 })
     )
     this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 'n' }
-    )
-    this.setState(
-      { inputNumber: '2' }
+      {
+        previType: this.state.type,
+        type: START,
+        inputNumber: '',
+        dotCount: 0
+      }
     )
   }
-  press3Handle = () => {
-
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 'n' }
-    )
-    this.setState(
-      { inputNumber: '3' }
-    )
-  }
-  press4Handle = () => {
-
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 'n' }
-    )
-    this.setState(
-      { inputNumber: '4' }
-    )
-  }
-  press5Handle = () => {
-
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 'n' }
-    )
-    this.setState(
-      { inputNumber: '5' }
-    )
-  }
-  press6Handle = () => {
-
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 'n' }
-    )
-    this.setState(
-      { inputNumber: '6' }
-    )
-  }
-  press7Handle = () => {
-
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 'n' }
-    )
-    this.setState(
-      { inputNumber: '7' }
-    )
-  }
-  press8Handle = () => {
-
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 'n' }
-    )
-    this.setState(
-      { inputNumber: '8' }
-    )
-  }
-  press9Handle = () => {
-
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 'n' }
-    )
-    this.setState(
-      { inputNumber: '9' }
-    )
-  }
-  pressDotHandle = () => {
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      { previType: this.state.type }
-    )
-    this.setState(
-      { type: 'd' }
-    )
-    this.setState(
-      { inputNumber: '.' }
-    )
-  }
-  pressAddHandle = () => {
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      ({ previType: this.state.type })
-    )
-    this.setState(
-      () => ({ type: 'c' })
-    )
-    this.setState(
-      { inputNumber: '' }
-    )
-    this.setState(
-      { operator: '+' }
-    )
-    this.setState(
-      { dotCount: 0 }
-    )
-  }
-  pressMinHandle = () => {
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      ({ previType: this.state.type })
-    )
-    this.setState(
-      () => ({ type: 'c' })
-    )
-    this.setState(
-      { inputNumber: '' }
-    )
-    this.setState(
-      { operator: '-' }
-    )
-    this.setState(
-      { dotCount: 0 }
-    )
-  }
-  pressMulHandle = () => {
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      ({ previType: this.state.type })
-    )
-    this.setState(
-      () => ({ type: 'c' })
-    )
-    this.setState(
-      { inputNumber: '' }
-    )
-    this.setState(
-      { operator: '*' }
-    )
-    this.setState(
-      { dotCount: 0 }
-    )
-  }
-  pressDivHandle = () => {
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      ({ previType: this.state.type })
-    )
-    this.setState(
-      () => ({ type: 'c' })
-    )
-    this.setState(
-      { inputNumber: '' }
-    )
-    this.setState(
-      { operator: '/' }
-    )
-    this.setState(
-      { dotCount: 0 }
-    )
-  }
-  pressC_Handle = () => {
-
-    this.setState(
-      { inputNumber: '' }
-    )
-    this.setState(
-      (e) => ({ count: e.count + 1 })
-    )
-    this.setState(
-      { previType: this.state.type }
-    )
-
-    this.setState(
-      { type: 's' }
-    )
-    this.setState(
-      { dotCount: 0 }
-    )
-  }
-  pressEqualHandle = () => {
+  setEqualState = () => {
     let input = this.state.inputData
     if (input.slice(-1) === '+') { input = input.slice(0, -1) }  //kiểm tra chuỗi nhập vào trước khi nhán phím =,nếu có phép tính ở cuối chuỗi thì loại bỏ
-    console.log({ input })
     let result = eval(input)
     this.setState(
       (e) => ({ count: e.count + 1 })
     )
     this.setState(
-      { type: 'e' }
-    )
-    this.setState(
-      { previType: this.state.type }
+      {
+        previType: this.state.type,
+        type: EQUAL,
+        result,
+        dotCount: 0
+      }
     )
 
-    this.setState(
-      { result: result }
-    )
-    this.setState(
-      { dotCount: 0 }
-    )
   }
-  componentDidMount() {
-    console.log("App Didmount")
+  pressHandle = (valuePress) => {
+    switch (valuePress) {
+      case 9:
+        this.setNumberState('9')
+        break
+      case 8:
+        this.setNumberState('8')
+        break
+      case 7:
+        this.setNumberState('7')
+        break
+      case 6:
+        this.setNumberState('6')
+        break
+      case 5:
+        this.setNumberState('5')
+        break
+      case 4:
+        this.setNumberState('4')
+        break
+      case 3:
+        this.setNumberState('3')
+        break
+      case 2:
+        this.setNumberState('2')
+        break
+      case 1:
+        this.setNumberState('1')
+        break
+      case 0:
+        this.setNumberState('0')
+        break
+      case 'ADD':
+        this.setOperatorState('+')
+        break
+      case ' MIN':
+        this.setOperatorState('-')
+        break
+      case 'MUL':
+        this.setOperatorState('*')
+        break
+      case 'DIV':
+        this.setOperatorState('/')
+        break
+      case 'DOT':
+        this.setDotState()
+        break
+      case 'EQUAL':
+        this.setEqualState()
+        break
+      case 'RESET':
+        this.setResetState()
+        break
+
+    }
   }
+
+
   render() {
-    console.log("App render")
-    let { displayNumber } = this.state
-    let { inputNumber } = this.state
-    let { count } = this.state
-    let { previCount } = this.state
-    let { type } = this.state
-    let { previType } = this.state
-    let { operator } = this.state
-    let { result } = this.state
-    let { dotCount } = this.state
-    if (count !== previCount & type === 'n' & (previType === 'n' || previType === 's' || previType === 'd')) {  // trường hợp ấn phím số khi phím trước là phím (số hoặc C hoặc .)
+
+    let { displayNumber, inputNumber, count, previCount, type, previType, operator, result, dotCount } = this.state
+
+    if (count !== previCount & type === NUMBER & (previType === NUMBER || previType === START || previType === DOT)) {  // trường hợp ấn phím số khi phím trước là phím (số hoặc C hoặc .)
       this.setState({ previCount: count })
       this.setState(
         (e) => ({ displayNumber: e.displayNumber + inputNumber })
@@ -504,7 +238,7 @@ export default class App extends Component {
         (e) => ({ inputData: e.inputData + inputNumber })
       )
     }
-    if (count !== previCount & type === 'n' & previType === 'c') {    // trường hợp ấn phím số khi phím trước là phím tính 
+    if (count !== previCount & type === NUMBER & previType === OPERATOR) {    // trường hợp ấn phím số khi phím trước là phím tính 
       this.setState({ previCount: count })
       this.setState(
         () => ({ displayNumber: inputNumber })
@@ -513,7 +247,7 @@ export default class App extends Component {
         (e) => ({ inputData: e.inputData + inputNumber })
       )
     }
-    if (count !== previCount & type === 'n' & previType === 'e') {  // trường hợp ấn phím số khi phím trước là phím =
+    if (count !== previCount & type === NUMBER & previType === EQUAL) {  // trường hợp ấn phím số khi phím trước là phím =
       this.setState({ previCount: count })
       this.setState(
         () => ({ displayNumber: inputNumber })
@@ -523,49 +257,49 @@ export default class App extends Component {
       )
 
     }
-    if (count !== previCount & type === 'd' & previType === 'n' & dotCount !== 1) {   // trường hợp ấn phím . lần đầu và khi phím trước là phím số 
-      this.setState({ previCount: count })
+    if (count !== previCount & type === DOT & previType === NUMBER & dotCount !== 1) {   // trường hợp ấn phím . lần đầu và khi phím trước là phím số 
+      this.setState(
+        {
+          previCount: count,
+          dotCount: 1
+        }
+      )
       this.setState(
         (e) => ({ displayNumber: e.displayNumber + inputNumber })
       )
       this.setState(
         (e) => ({ inputData: e.inputData + inputNumber })
       )
+    }
+    if (count !== previCount & type === DOT & (previType === EQUAL || previType === START) & dotCount !== 1) {        // trường hợp ấn phím . khi phím trước là phím (= hoặc C)
       this.setState(
-        { dotCount: 1 }
+        {
+          previCount: count,
+          displayNumber: '0.',
+          inputData: '0.',
+          dotCount: 1
+        }
       )
     }
-    if (count !== previCount & type === 'd' & (previType === 'e' || previType === 's') & dotCount !== 1) {        // trường hợp ấn phím . khi phím trước là phím (= hoặc C)
-      this.setState({ previCount: count })
+    if (count !== previCount & type === DOT & previType === OPERATOR & dotCount !== 1) {        // trường hợp ấn phím . khi phím trước là phím tính
       this.setState(
-        { displayNumber: '0.' }
-      )
-      this.setState(
-        { inputData: '0.' }
-      )
-      this.setState(
-        { dotCount: 1 }
-      )
-    }
-    if (count !== previCount & type === 'd' & previType === 'c' & dotCount !== 1) {        // trường hợp ấn phím . khi phím trước là phím tính
-      this.setState({ previCount: count })
-      this.setState(
-        { displayNumber: '0.' }
+        {
+          previCount: count,
+          displayNumber: '0.',
+          dotCount: 1
+        }
       )
       this.setState(
         (e) => ({ inputData: e.inputData + '0.' })
       )
-      this.setState(
-        { dotCount: 1 }
-      )
     }
-    if (count !== previCount & type === 'c' & previType === 'n') { // trường hợp ấn phím tính khi phía trước là phím số
+    if (count !== previCount & type === OPERATOR & previType === NUMBER) { // trường hợp ấn phím tính khi phía trước là phím số
       this.setState({ previCount: count })
       this.setState(
         (e) => ({ inputData: e.inputData + operator })
       )
     }
-    if (count !== previCount & type === 'c' & previType === 'c') {  // trường hợp ấn phím tính khi phím trước là phím tính 
+    if (count !== previCount & type === OPERATOR & previType === OPERATOR) {  // trường hợp ấn phím tính khi phím trước là phím tính 
       this.setState({ previCount: count })
       let { inputData } = this.state
       inputData = inputData.slice(0, -1)
@@ -574,19 +308,19 @@ export default class App extends Component {
         () => ({ inputData: inputData })
       )
     }
-    if (count !== previCount & type === 'c' & (previType === 'e' || previType === 's')) {  // trường hợp ấn phím tính khi phím trước là phím =
+    if (count !== previCount & type === OPERATOR & (previType === EQUAL || previType === START)) {  // trường hợp ấn phím tính khi phím trước là phím =
       this.setState({ previCount: count })
       this.setState(
         (e) => ({ inputData: e.inputData + operator })
       )
     }
-    if (count !== previCount & type === 'c' & previType === 'd') { //trường hợp ấn phím tính khi trước là phím . đầu tiên của 1 số
+    if (count !== previCount & type === OPERATOR & previType === DOT) { //trường hợp ấn phím tính khi trước là phím . đầu tiên của 1 số
       this.setState({ previCount: count })
       this.setState(
         (e) => ({ inputData: e.inputData + operator })
       )
     }
-    if (count !== previCount & type === 'e' & (previType === 'n' || previType === 'c' || previType === 'd')) {  // trường hợp ấn phím = khi phím trước là phím số 
+    if (count !== previCount & type === EQUAL & (previType === NUMBER || previType === OPERATOR || previType === DOT)) {  // trường hợp ấn phím = khi phím trước là phím số 
       this.setState({ previCount: count })
       this.setState(
         { displayNumber: result.toString() }, () => { console.log(this.state.inputData) }
@@ -595,43 +329,23 @@ export default class App extends Component {
         { inputData: result.toString() }, () => { console.log(this.state.inputData) }
       )
     }
-    if (count !== previCount & type === 's') {       // trường hợp ấn phím C khi phím trước là bất kì phím gì 
-      this.setState({ previCount: count })
+    if (count !== previCount & type === START) {       // trường hợp ấn phím C khi phím trước là bất kì phím gì 
       this.setState(
-        { inputData: '' }
-      )
-      this.setState(
-        { displayNumber: '0' }
-      )
-      this.setState(
-        { result: 0 }
+        {
+          previCount: count,
+          inputData: '',
+          displayNumber: '0',
+          result: 0
+        }
       )
     }
     return (
       <View style={styles.container}>
         <Screen
           displayNumber={displayNumber}
-          type={type}
-          previType={previType}
         />
         <MyButton
-          onChangePress0={this.press0Handle}
-          onChangePress1={this.press1Handle}
-          onChangePress2={this.press2Handle}
-          onChangePress3={this.press3Handle}
-          onChangePress4={this.press4Handle}
-          onChangePress5={this.press5Handle}
-          onChangePress6={this.press6Handle}
-          onChangePress7={this.press7Handle}
-          onChangePress8={this.press8Handle}
-          onChangePress9={this.press9Handle}
-          onChangePressDot={this.pressDotHandle}
-          onChangePressAdd={this.pressAddHandle}
-          onChangePressMin={this.pressMinHandle}
-          onChangePressMul={this.pressMulHandle}
-          onChangePressDiv={this.pressDivHandle}
-          onChangePress_C={this.pressC_Handle}
-          onChangePressEqual={this.pressEqualHandle}
+          onchangePress={this.pressHandle}
         />
       </View>
     )
@@ -704,3 +418,4 @@ const styles = StyleSheet.create({
     fontSize: 50,
   },
 })
+
